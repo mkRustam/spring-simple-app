@@ -1,10 +1,17 @@
 package com.example.demo.repository;
 
+import jakarta.persistence.*;
+
 import java.time.LocalDate;
 
+@Entity
+@Table(name = "users")
 public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Обозначение что генерацией Id будет заниматься БД
     private Long id;
+    // @Column(name = "name") // Для случаев когда название переменной отличается от названия поля в БД
     private String name;
     private Integer age;
     private LocalDate birth;
