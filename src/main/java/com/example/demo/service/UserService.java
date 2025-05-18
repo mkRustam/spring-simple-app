@@ -25,7 +25,7 @@ public class UserService {
 
     public User create(User user) {
         if (userRepository.existsByEmail(user.getEmail())) {
-            throw new IllegalStateException("User with email already exists");
+            throw new IllegalStateException("Пользователь с такой почтой уже существует");
         } else {
             user.setAge(Period.between(user.getBirth(), LocalDate.now()).getYears());
             return userRepository.save(user);
@@ -36,7 +36,7 @@ public class UserService {
         if (userRepository.existsById(id)) {
             userRepository.deleteById(id);
         } else {
-            throw new IllegalStateException("User with this id doesnt exists");
+            throw new IllegalStateException("Пользователь с таким id не сущесвует");
         }
     }
 
@@ -44,7 +44,7 @@ public class UserService {
     public void update(Long id, User user) {
         Optional<User> optionalUser = userRepository.findById(id);
         if (optionalUser.isEmpty()) {
-            throw new IllegalStateException("User with this id doesnt exists");
+            throw new IllegalStateException("Пользователя с таким id не существует");
         }
 
         User currentUser = optionalUser.get();
@@ -53,7 +53,7 @@ public class UserService {
         }
         if (user.getEmail() != null && !user.getEmail().isEmpty() && !user.getEmail().equals(currentUser.getEmail())) {
             if (userRepository.existsByEmail(user.getEmail())) {
-                throw new IllegalStateException("User with this email already exists");
+                throw new IllegalStateException("Пользователь с такой почтой уже существует");
             } else {
                 currentUser.setEmail(user.getEmail());
             }
